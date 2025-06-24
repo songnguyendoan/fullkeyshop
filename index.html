@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bảng giá</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9fafb;
+      color: var(--text);
+      padding: 1rem;
+    }
+    .price-table {
+      max-width: 800px;
+      margin: auto;
+      background: var(--bg);
+      border-radius: 10px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      border-left: 5px solid var(--primary);
+      padding-left: 12px;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      background: #e8e7ed;
+      padding: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    th {
+      background-color: #f3f4f6;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    td.price {
+      color: var(--primary);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-style: italic;
+      padding: 1rem;
+      background: #f9fafb;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .modal-body span {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-footer {
+      margin-top: 1rem;
+      text-align: right;
+    }
+
+    .modal-footer button {
+      background: #4b5563;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* 📌 Nút Zalo cố định */
+    .zalo-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #0084ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      z-index: 99;
+    }
+    td:first-child {
+      font-weight: 600;
+    }
+    .zalo-button img {
+      width: 32px;
+      height: 32px;
+    }
+
+    @media (max-width: 640px) {
+      th, td {
+        padding: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BẢNG GIÁ -->
+  <section class="price-table">
+    <h2>BẢNG GIÁ</h2>
+    <table>
+      <thead>
+        <tr>
+          <th><b>Tên sản phẩm</b></th>
+          <th><b>Đơn giá</b></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="2" class="note">
+            <i>Lưu ý: Nhấn vào dịch vụ bạn cần tham khảo để có thông tin chi tiết. Lựa xong bấm nút góc dưới bên phải để thanh toán hoặc nhận hỗ trợ nha.</i></td>
+        </tr>
+        <tr>
+          <td>ChatGPT plus 🌷</td>
+          <td class="price" onclick="showDetail('ChatGPT plus 🌷')">79.000 - 249.000/Tháng</td>
+        </tr>
+        <tr>
+          <td>Canva Pro 🌷</td>
+          <td class="price" onclick="showDetail('Canva Pro 🌷')">90.000 - 240.000/Tháng</td>
+        </tr>
+        <tr>
+          <td>Capcut Pro 🌷</td>
+          <td class="price" onclick="showDetail('Capcut Pro 🌷')">89.000 - 699.000/Tháng</td>
+        </tr>
+<!--    <tr>
+          <td>Netflix 🌷</td>
+          <td class="price" onclick="showDetail('Netflix 🌷')">35.000 - 60.000/Tháng</td>
+        </tr> -->
+         <tr>
+          <td>Duolingo 🌷</td>
+          <td class="price" onclick="showDetail('Duolingo 🌷')">90.000 - 450.000/Tháng</td>
+        </tr>
+        <!-- <tr>
+          <td>Spotify Premium 🌷</td>
+          <td class="price" onclick="showDetail('Spotify Premium 🌷')">/Tháng</td>
+        </tr> -->
+       
+        <tr>
+          <td>YouTube 🌷</td>
+          <td class="price" onclick="showDetail('YouTube Premium 🌷')">32.000-299.000/Tháng</td>
+        </tr>
+        <!-- <tr>
+          <td>Google One🌷</td>
+          <td class="price" onclick="showDetail('Google One🌷')">79.000 - 249.000/Tháng</td>
+        </tr> -->
+        
+        <!-- Có thể thêm nhiều dòng ở đây -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal" id="detailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Tiêu đề</h3>
+        <button class="close-btn" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Nội dung từ JS -->
+      </div>
+      <div class="modal-footer">
+        <button onclick="closeModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NÚT ZALO -->
+  <a class="zalo-button" href="https://zalo.me/0334321090" target="_blank" title="Nhắn Zalo">
+    <img src="zalo.png" alt="Zalo">
+  </a>
+<div class="tenor-gif-embed" data-postid="18522291" data-share-method="host" data-aspect-ratio="1.18519" data-width="100%"><a href="https://tenor.com/view/money-throwing-gif-18522291">Money Throwing Sticker</a>from <a href="https://tenor.com/search/money-stickers">Money Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+  <!-- SCRIPT -->
+  <script>
+    const modal = document.getElementById("detailModal");
+    const title = document.getElementById("modalTitle");
+    const body = document.getElementById("modalBody");
+
+    const data = {
+      "ChatGPT plus 🌷": [
+        "✨ ChatGPT plus",
+        "✨ Share 79k/tháng (gói dùng chung 4 người)",
+        "✨ Nâng chính chủ 249k/tháng(dành cho nhóm 5 người)",
+        "Tất cả đều có bảo hành ạ"
+      ],
+      "Canva Pro 🌷": [
+        "✨ Gói 1 năm: 90k",
+        "✨ Gói 2 năm: 160k",
+        "✨ Gói 3 năm: 240k",
+        "✨ Gói vĩnh viễn: 700k",
+        "Nâng cấp gmail chính chủ, add vào team canva, bảo hành toàn thời gian sử dụng."
+      ],
+      "Capcut Pro 🌷": [
+        "✨ Gói 1 tháng 1 thiết bị: 89k",
+        "✨ Gói 6 tháng 1 thiết bị: 349k",
+        "✨ Gói 1 năm 3 thiết bị: 699k",
+        "✨ Gói vĩnh viễn 3 thiết bị: 999k",
+        "Cung cấp email+pass, đổi mới nếu lỗi, không chia sẻ tài khoản với người khác  bảo hành toàn thời gian sử dụng."
+      ],
+      // "Netflix 🌷": [
+      //   "✨Gói 35k:",
+      //   "❗Không được đổi tên Profile và mã pin",
+      //   "❗Có thể bị lỗi",
+      //   "❗2 người chung 1 profile",
+      //   "✨Gói 60k",
+      //   "❗Được đặt tên Profile và mã pin theo sở thích",
+      //   "❗Ít bị lỗi, có thể dùng được ở nước ngoài",
+      //   "Tất cả đều được bảo hành trong thời gian sử dụng, từ chối bảo hành với các trường hợp cố ý đổi pass hoặc đăng xuất khỏi tất cả các thiết bị."
+      // ],
+      "Duolingo 🌷": [
+        "✨ Duolingo Pro 6 tháng:90k ",
+        "✨ Duolingo Pro 1 năm:170k",
+        "✨ Duolingo Max 6 tháng:200k",
+        "✨ Duolingo Max 1 năm:450k",
+        "Học tiếng anh thả ga chỉ cỡ 1k/ngày, bảo hành suốt thời gian sử dụng, không bảo hành trường hợp tự ý thoát khỏi family."
+      ],
+      // "Spotify Premium 🌷": [
+      //   "✨Spotify 1 tháng:",
+      //   "✨Spotify 3 tháng:",
+      //   "✨Spotify 6 tháng:",
+      //   "✨Spotify 1 năm:",
+      //   ""
+      // ],
+      "YouTube Premium 🌷": [
+        "✨Youtube Premium 1 tháng: 32k",
+        "✨Youtube Premium 6 tháng: 159k",
+        "✨Youtube Premium 1 năm: 299k",
+        "Nâng cấp gmail chính chủ add vào family, bảo hành trong thời gian sử dụng."
+      ],
+      // "Google One🌷": [
+      // "✨ Giá: 79.000 - 249.000 VNĐ/tháng",
+      // "✨ Dung lượng lưu trữ mở rộng cho Google Drive, Photos, Gmail"
+      // ]
+    };
+
+    function showDetail(serviceName) {
+      title.textContent = serviceName;
+      const lines = data[serviceName] || ["Không có dữ liệu chi tiết."];
+      body.innerHTML = lines.map(item => `<span>${item}</span>`).join('');
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    // Đóng modal khi click ra ngoài
+    window.onclick = function(e) {
+      if (e.target === modal) closeModal();
+    }
+  </script>
+
+</body>
+</html>
